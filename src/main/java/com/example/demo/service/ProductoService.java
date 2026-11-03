@@ -37,4 +37,12 @@ public class ProductoService {
     public List<Producto> buscarPorCategoria(String nombreCat) {
         return repository.buscarPorCategoria(nombreCat);
     }
+
+    public List<Producto> buscarPorEstadoYMarca(String estado, String marca) {
+        return repository.buscarPorEstadoYMarca(estado, marca);
+    }
+
+    public List<Producto> buscarPorRangoPrecio(Double min, Double max) {
+        return repository.buscarPorRangoPrecio(min, max);
+    }
 }

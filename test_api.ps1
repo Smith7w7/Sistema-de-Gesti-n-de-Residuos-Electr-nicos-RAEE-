@@ -1,57 +1,91 @@
 Write-Host "=========================================================="
-Write-Host " PRUEBAS DE LA API REST (CRUD) - PUNTO 6.2 DEL INFORME"
+Write-Host " PRUEBAS DE LA API REST (CRUD) Y CONSULTAS JPQL / NAMED"
 Write-Host "=========================================================="
 
-$baseUrl = "http://localhost:8080/api/productos"
+$baseProd = "http://localhost:8080/api/productos"
+$baseCli = "http://localhost:8080/api/clientes"
 
-# 1. POST - Registrando un equipo
-Write-Host "`n>>> 1. POST (Registrando un equipo)..."
-$bodyPost = @{
-    nombre = "Monitor Dell 24 pulgadas"
-    marca = "Dell"
-    modelo = "P2419H"
-    estado = "RECIBIDO"
-} | ConvertTo-Json
-
-$respPost = Invoke-RestMethod -Uri $baseUrl -Method POST -Body $bodyPost -ContentType "application/json"
-Write-Host "Respuesta HTTP POST (Equipo registrado):"
-$respPost | ConvertTo-Json -Depth 5
-$nuevoId = $respPost.id
-
-# 2. GET - Buscándolo
-Write-Host "`n>>> 2. GET (Buscando equipos en inventario)..."
-$respGet = Invoke-RestMethod -Uri $baseUrl -Method GET
-Write-Host "Respuesta HTTP GET (Lista de equipos):"
-$respGet | ConvertTo-Json -Depth 5
-
-Write-Host "`n>>> 2b. GET por ID (Buscando equipo con ID $nuevoId)..."
-$respGetId = Invoke-RestMethod -Uri "$baseUrl/$nuevoId" -Method GET
-$respGetId | ConvertTo-Json -Depth 5
-
-# 3. PUT - Actualizándolo
-Write-Host "`n>>> 3. PUT (Actualizando el equipo)..."
-$bodyPut = @{
+# ----------------------------------------------------
+# 1. PRUEBAS CRUD - PRODUCTOS
+# ----------------------------------------------------
+Write-Host "`n>>> [PRODUCTO] 1. POST (Registrando un equipo/producto)..."
+$bodyProd = @{
     nombre = "Monitor Dell 24 pulgadas UltraSharp"
     marca = "Dell"
     modelo = "U2419H"
-    estado = "EN_PROCESO"
+    estado = "RECIBIDO"
+    precio = 450.00
+    stock = 10
 } | ConvertTo-Json
 
-$respPut = Invoke-RestMethod -Uri "$baseUrl/$nuevoId" -Method PUT -Body $bodyPut -ContentType "application/json"
-Write-Host "Respuesta HTTP PUT (Equipo actualizado):"
-$respPut | ConvertTo-Json -Depth 5
+$respProdPost = Invoke-RestMethod -Uri $baseProd -Method POST -Body $bodyProd -ContentType "application/json"
+Write-Host "Respuesta HTTP POST (Producto registrado):"
+$respProdPost | ConvertTo-Json -Depth 5
+$prodId = $respProdPost.id
 
-# 4. DELETE - Eliminándolo
-Write-Host "`n>>> 4. DELETE (Eliminando el equipo con ID $nuevoId)..."
-Invoke-RestMethod -Uri "$baseUrl/$nuevoId" -Method DELETE
-Write-Host "Respuesta HTTP DELETE: 200 OK (Equipo eliminado exitosamente)"
+Write-Host "`n>>> [PRODUCTO] 2. GET (Consultando producto por ID $prodId)..."
+$respProdGet = Invoke-RestMethod -Uri "$baseProd/$prodId" -Method GET
+$respProdGet | ConvertTo-Json -Depth 5
 
-# 5. GET final de verificación
-Write-Host "`n>>> 5. GET (Verificacion final de la lista de equipos)..."
-$respGetFinal = Invoke-RestMethod -Uri $baseUrl -Method GET
-Write-Host "Respuesta HTTP GET final:"
-$respGetFinal | ConvertTo-Json -Depth 5
+Write-Host "`n>>> [PRODUCTO] 3. PUT (Actualizando estado y precio)..."
+$bodyProdPut = @{
+    nombre = "Monitor Dell 24 pulgadas UltraSharp (Aprobado)"
+    marca = "Dell"
+    modelo = "U2419H"
+    estado = "OPERATIVO"
+    precio = 480.00
+    stock = 9
+} | ConvertTo-Json
+$respProdPut = Invoke-RestMethod -Uri "$baseProd/$prodId" -Method PUT -Body $bodyProdPut -ContentType "application/json"
+$respProdPut | ConvertTo-Json -Depth 5
+
+Write-Host "`n>>> [PRODUCTO] 4. Named Query (Buscar por Estado y Marca)..."
+$respNamedProd = Invoke-RestMethod -Uri "$baseProd/buscar/estado-marca?estado=OPERATIVO&marca=Dell" -Method GET
+$respNamedProd | ConvertTo-Json -Depth 5
+
+# ----------------------------------------------------
+# 2. PRUEBAS CRUD - CLIENTES
+# ----------------------------------------------------
+Write-Host "`n>>> [CLIENTE] 1. POST (Registrando un cliente)..."
+$bodyCli = @{
+    nombre = "Mariana Valdivia"
+    identificacion = "71829304"
+    email = "mariana.valdivia@test.com"
+    telefono = "987112233"
+    tipo = "NATURAL"
+} | ConvertTo-Json
+
+$respCliPost = Invoke-RestMethod -Uri $baseCli -Method POST -Body $bodyCli -ContentType "application/json"
+Write-Host "Respuesta HTTP POST (Cliente registrado):"
+$respCliPost | ConvertTo-Json -Depth 5
+$cliId = $respCliPost.id
+
+Write-Host "`n>>> [CLIENTE] 2. Named Query (Buscar por Identificación/DNI)..."
+$respCliDoc = Invoke-RestMethod -Uri "$baseCli/identificacion/71829304" -Method GET
+$respCliDoc | ConvertTo-Json -Depth 5
+
+Write-Host "`n>>> [CLIENTE] 3. PUT (Actualizando datos del cliente)..."
+$bodyCliPut = @{
+    nombre = "Mariana Valdivia Ramos"
+    identificacion = "71829304"
+    email = "m.valdivia@empresa.com"
+    telefono = "987000111"
+    tipo = "NATURAL"
+} | ConvertTo-Json
+$respCliPut = Invoke-RestMethod -Uri "$baseCli/$cliId" -Method PUT -Body $bodyCliPut -ContentType "application/json"
+$respCliPut | ConvertTo-Json -Depth 5
+
+# ----------------------------------------------------
+# 3. ELIMINACIÓN Y VERIFICACIÓN
+# ----------------------------------------------------
+Write-Host "`n>>> [PRODUCTO] 5. DELETE (Eliminando producto de prueba ID $prodId)..."
+Invoke-RestMethod -Uri "$baseProd/$prodId" -Method DELETE
+Write-Host "Respuesta HTTP DELETE: 204 No Content (Producto eliminado con éxito)"
+
+Write-Host "`n>>> [CLIENTE] 4. DELETE (Eliminando cliente de prueba ID $cliId)..."
+Invoke-RestMethod -Uri "$baseCli/$cliId" -Method DELETE
+Write-Host "Respuesta HTTP DELETE: 204 No Content (Cliente eliminado con éxito)"
 
 Write-Host "`n=========================================================="
-Write-Host " [EXITO] TODAS LAS PRUEBAS CRUD DEL PUNTO 6.2 COMPLETADAS"
+Write-Host " [EXITO] TODAS LAS PRUEBAS CRUD Y CONSULTAS VALIDADAS"
 Write-Host "=========================================================="

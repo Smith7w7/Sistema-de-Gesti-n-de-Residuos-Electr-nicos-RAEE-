@@ -1,0 +1,113 @@
+// Variables SASS del Sistema
+$primary-color: #0f172a;
+$accent-emerald: #10b981;
+$accent-cyan: #06b6d4;
+$accent-blue: #3b82f6;
+$accent-amber: #f59e0b;
+$accent-rose: #f43f5e;
+$bg-light: #f8fafc;
+$text-dark: #1e293b;
+$card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+
+body {
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: $bg-light;
+  color: $text-dark;
+  min-height: 100vh;
+}
+
+// Estructura Flexbox y Grid
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.kpi-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: $card-shadow;
+  border-left: 5px solid $accent-emerald;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.1);
+  }
+
+  &.blue { border-left-color: $accent-blue; }
+  &.amber { border-left-color: $accent-amber; }
+  &.cyan { border-left-color: $accent-cyan; }
+
+  .kpi-info {
+    h6 {
+      color: #64748b;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.25rem;
+    }
+    h3 {
+      font-weight: 700;
+      color: $text-dark;
+      margin: 0;
+    }
+  }
+
+  .kpi-icon {
+    font-size: 2.2rem;
+    opacity: 0.85;
+  }
+}
+
+.custom-card {
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: $card-shadow;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  margin-bottom: 1.75rem;
+
+  .card-header {
+    background-color: #ffffff;
+    border-bottom: 1px solid #f1f5f9;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 14px 14px 0 0;
+
+    h5 {
+      font-weight: 600;
+      margin: 0;
+      color: $text-dark;
+    }
+  }
+
+  .card-body {
+    padding: 1.5rem;
+  }
+}
+
+// Badges de Estado
+.badge-recibido {
+  background-color: #fef3c7;
+  color: #92400e;
+  font-weight: 600;
+}
+
+.badge-operativo {
+  background-color: #d1fae5;
+  color: #065f46;
+  font-weight: 600;
+}
+
+.badge-mantenimiento {
+  background-color: #fee2e2;
+  color: #991b1b;
+  font-weight: 600;
+}
