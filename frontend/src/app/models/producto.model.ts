@@ -11,3 +11,4 @@ export interface Producto {
   fechaRegistro?: string;
   categoria?: Categoria;
 }
+

@@ -17,3 +17,4 @@ export interface Venta {
   cliente: Cliente;
   detalles: DetalleVenta[];
 }
+

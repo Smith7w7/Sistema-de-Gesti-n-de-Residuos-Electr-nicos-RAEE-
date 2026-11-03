@@ -33,7 +33,18 @@
               "src/styles.scss"
             ],
             "scripts": []
-          }
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -49,5 +60,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "9e4e3ae8-de49-4eb2-bcc1-0f1cde373cf1"
   }
 }

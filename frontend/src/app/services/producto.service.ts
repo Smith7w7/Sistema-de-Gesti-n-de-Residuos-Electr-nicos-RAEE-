@@ -39,3 +39,4 @@ export class ProductoService {
     return this.http.get<Producto[]>(`${this.apiUrl}/categoria/${categoria}`);
   }
 }
+

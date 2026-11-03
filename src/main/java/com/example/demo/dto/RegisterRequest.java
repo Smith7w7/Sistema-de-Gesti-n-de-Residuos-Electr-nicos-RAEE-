@@ -21,3 +21,4 @@ public class RegisterRequest {
     @NotNull(message = "El rol es obligatorio (ROLE_ADMIN o ROLE_VENDEDOR)")
     private Rol rol;
 }
+

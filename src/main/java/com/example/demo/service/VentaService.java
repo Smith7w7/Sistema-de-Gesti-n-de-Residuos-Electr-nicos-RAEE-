@@ -56,3 +56,4 @@ public class VentaService {
         return repository.buscarPorEstado(estado);
     }
 }
+

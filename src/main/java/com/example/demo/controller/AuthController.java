@@ -71,3 +71,4 @@ public class AuthController {
                 .body(new AuthResponse(token, usuario.getUsername(), usuario.getRol().name()));
     }
 }
+

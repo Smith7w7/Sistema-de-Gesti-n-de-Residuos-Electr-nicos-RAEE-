@@ -15,3 +15,4 @@ export class CategoriaService {
     return this.http.get<Categoria[]>(this.apiUrl);
   }
 }
+

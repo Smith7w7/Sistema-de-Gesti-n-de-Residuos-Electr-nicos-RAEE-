@@ -6,3 +6,4 @@ export interface Cliente {
   telefono?: string;
   tipo: 'NATURAL' | 'JURIDICO' | string;
 }
+

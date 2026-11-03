@@ -11,3 +11,4 @@ public class LoginRequest {
     @NotBlank(message = "La contraseña no puede estar vacía")
     private String password;
 }
+

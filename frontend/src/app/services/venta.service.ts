@@ -27,3 +27,4 @@ export class VentaService {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }
+

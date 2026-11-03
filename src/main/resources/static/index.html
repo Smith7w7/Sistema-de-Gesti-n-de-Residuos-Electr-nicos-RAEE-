@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UPN - Sistema de Gestión de RAEE (ODS 09) | Pruebas API REST</title>
+    <title>UPN - Sistema de Gestión de RAEE y Ventas | Panel Web</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -38,7 +38,7 @@
                 radial-gradient(at 50% 100%, rgba(59, 130, 246, 0.08) 0px, transparent 50%);
             color: var(--text-primary);
             min-height: 100vh;
-            padding: 24px;
+            padding: 30px 20px;
         }
 
         .container {
@@ -52,7 +52,7 @@
             align-items: center;
             padding-bottom: 24px;
             border-bottom: 1px solid var(--border-color);
-            margin-bottom: 28px;
+            margin-bottom: 24px;
             flex-wrap: wrap;
             gap: 16px;
         }
@@ -61,6 +61,7 @@
             display: flex;
             gap: 10px;
             align-items: center;
+            flex-wrap: wrap;
         }
 
         .badge {
@@ -84,41 +85,75 @@
             border: 1px solid rgba(16, 185, 129, 0.3);
         }
 
-        .badge-status {
-            background: rgba(16, 185, 129, 0.2);
-            color: #10b981;
+        .auth-bar {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 14px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .auth-user-info {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 10px;
         }
 
-        .pulse-dot {
-            width: 8px;
-            height: 8px;
-            background: #10b981;
-            border-radius: 50%;
-            box-shadow: 0 0 8px #10b981;
-            animation: pulse 2s infinite;
+        .auth-buttons {
+            display: flex;
+            gap: 8px;
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
+        .btn-auth {
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            transition: all 0.2s;
         }
 
-        h1 {
-            font-size: 1.85rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #ffffff 40%, #94a3b8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-top: 6px;
+        .btn-auth:hover {
+            background: rgba(255, 255, 255, 0.15);
         }
 
-        p.subtitle {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            margin-top: 4px;
+        .btn-auth-admin {
+            border-color: rgba(244, 63, 94, 0.4);
+            color: #fda4af;
+        }
+
+        .btn-auth-admin:hover {
+            background: rgba(244, 63, 94, 0.2);
+        }
+
+        .btn-auth-vend {
+            border-color: rgba(6, 182, 212, 0.4);
+            color: #67e8f9;
+        }
+
+        .btn-auth-vend:hover {
+            background: rgba(6, 182, 212, 0.2);
+        }
+
+        .angular-banner {
+            background: linear-gradient(90deg, rgba(220, 38, 38, 0.15), rgba(147, 51, 234, 0.15));
+            border: 1px solid rgba(220, 38, 38, 0.3);
+            border-radius: 12px;
+            padding: 14px 20px;
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
         }
 
         .grid {
@@ -128,9 +163,7 @@
         }
 
         @media (max-width: 900px) {
-            .grid {
-                grid-template-columns: 1fr;
-            }
+            .grid { grid-template-columns: 1fr; }
         }
 
         .card {
@@ -159,7 +192,7 @@
         }
 
         .tag-post { background: rgba(16, 185, 129, 0.2); color: #34d399; }
-        .tag-get { background: rgba(6, 182, 212, 0.2); color: #38bdf8; }
+        .tag-get { background: rgba(6, 182, 212, 0.2); color: #22d3ee; }
         .tag-put { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
         .tag-delete { background: rgba(244, 63, 94, 0.2); color: #fb7185; }
 
@@ -169,28 +202,28 @@
 
         label {
             display: block;
-            font-size: 0.8rem;
-            font-weight: 500;
+            font-size: 0.85rem;
             color: var(--text-secondary);
             margin-bottom: 6px;
+            font-weight: 500;
         }
 
         input, select {
             width: 100%;
-            background: rgba(11, 17, 32, 0.8);
+            background: rgba(15, 23, 42, 0.6);
             border: 1px solid var(--border-color);
             border-radius: 8px;
             padding: 10px 14px;
-            color: var(--text-primary);
+            color: #ffffff;
             font-family: inherit;
-            font-size: 0.9rem;
-            transition: border-color 0.2s, box-shadow 0.2s;
+            font-size: 0.95rem;
+            transition: all 0.2s;
         }
 
         input:focus, select:focus {
             outline: none;
-            border-color: var(--accent-cyan);
-            box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.15);
+            border-color: var(--accent-emerald);
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
         }
 
         .row-2 {
@@ -199,73 +232,67 @@
             gap: 12px;
         }
 
-        button.btn {
+        .btn {
             width: 100%;
             padding: 12px;
+            border-radius: 8px;
             border: none;
-            border-radius: 10px;
-            font-family: inherit;
             font-weight: 600;
             font-size: 0.95rem;
             cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            transition: all 0.2s;
-            margin-top: 8px;
         }
 
-        .btn-post { background: #10b981; color: #042f2e; }
-        .btn-post:hover { background: #34d399; transform: translateY(-1px); }
+        .btn-post { background: var(--accent-emerald); color: #022c22; }
+        .btn-post:hover { background: #059669; color: #ffffff; }
 
-        .btn-get { background: #06b6d4; color: #082f49; }
-        .btn-get:hover { background: #38bdf8; transform: translateY(-1px); }
+        .btn-get { background: var(--accent-cyan); color: #083344; }
+        .btn-get:hover { background: #0891b2; color: #ffffff; }
 
-        .btn-put { background: #f59e0b; color: #451a03; }
-        .btn-put:hover { background: #fbbf24; transform: translateY(-1px); }
+        .btn-put { background: var(--accent-amber); color: #451a03; }
+        .btn-put:hover { background: #d97706; color: #ffffff; }
 
-        .btn-delete { background: #f43f5e; color: #4c0519; }
-        .btn-delete:hover { background: #fb7185; transform: translateY(-1px); }
+        .btn-delete { background: var(--accent-rose); color: #4c0519; }
+        .btn-delete:hover { background: #e11d48; color: #ffffff; }
 
         .terminal {
-            background: #060913;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 12px;
-            padding: 16px;
+            margin-top: 16px;
+            background: #050811;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 14px;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-            color: #38bdf8;
-            max-height: 260px;
+            font-size: 0.8rem;
+            max-height: 180px;
             overflow-y: auto;
-            white-space: pre-wrap;
-            word-break: break-all;
-            margin-top: 14px;
         }
 
         .terminal-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            font-size: 0.75rem;
             color: var(--text-muted);
+            font-size: 0.75rem;
             margin-bottom: 8px;
             padding-bottom: 6px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .status-pill {
-            font-weight: 600;
+            font-weight: bold;
             padding: 2px 6px;
             border-radius: 4px;
-            font-size: 0.75rem;
         }
 
-        .status-200 { background: rgba(16, 185, 129, 0.2); color: #34d399; }
-        .status-404 { background: rgba(244, 63, 94, 0.2); color: #fb7185; }
+        .status-200, .status-201 { color: #34d399; }
+        .status-400, .status-401, .status-403, .status-404 { color: #fb7185; }
 
         .table-container {
-            margin-top: 28px;
+            margin-top: 24px;
         }
 
         table {
@@ -275,63 +302,27 @@
             margin-top: 12px;
         }
 
-        th {
-            text-align: left;
+        th, td {
             padding: 12px;
-            background: rgba(11, 17, 32, 0.6);
-            color: var(--text-secondary);
-            font-weight: 600;
+            text-align: left;
             border-bottom: 1px solid var(--border-color);
         }
 
-        td {
-            padding: 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-            color: var(--text-primary);
-        }
-
-        tr:hover td {
-            background: rgba(255, 255, 255, 0.02);
+        th {
+            color: var(--text-secondary);
+            font-weight: 600;
         }
 
         .badge-estado {
-            display: inline-block;
-            padding: 4px 10px;
+            padding: 4px 8px;
             border-radius: 6px;
             font-size: 0.75rem;
             font-weight: 600;
         }
 
-        .estado-recibido { background: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
-        .estado-proceso { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
-        .estado-reciclado { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
-
-        .doc-alert {
-            background: rgba(16, 185, 129, 0.08);
-            border: 1px solid rgba(16, 185, 129, 0.25);
-            border-radius: 12px;
-            padding: 16px 20px;
-            margin-bottom: 24px;
-            display: flex;
-            gap: 16px;
-            align-items: center;
-        }
-
-        .doc-alert svg {
-            flex-shrink: 0;
-            width: 24px;
-            height: 24px;
-            color: #10b981;
-        }
-
-        .doc-alert-content {
-            font-size: 0.9rem;
-            color: #cbd5e1;
-        }
-
-        .doc-alert-content strong {
-            color: #34d399;
-        }
+        .estado-recibido { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+        .estado-operativo { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+        .estado-mantenimiento { background: rgba(244, 63, 94, 0.2); color: #fb7185; }
     </style>
 </head>
 <body>
@@ -339,25 +330,46 @@
         <header>
             <div>
                 <div class="badge-group">
-                    <span class="badge badge-upn">UPN • GRUPO 07</span>
-                    <span class="badge badge-ods">ODS 09: Industria & Infraestructura</span>
-                    <span class="badge badge-status"><span class="pulse-dot"></span> Backend Activo</span>
+                    <span class="badge badge-upn">UPN Campus Sostenible</span>
+                    <span class="badge badge-ods">ODS 09 - Industria e Innovación</span>
                 </div>
-                <h1>Sistema de Gestión de Residuos Electrónicos (RAEE)</h1>
-                <p class="subtitle">Consola interactiva de pruebas para validación del Punto 6.2 (CRUD API REST con Spring Data JPA)</p>
-            </div>
-            <div>
-                <a href="/h2-console" target="_blank" style="color: var(--accent-cyan); font-size: 0.85rem; text-decoration: none; border: 1px solid var(--border-color); padding: 8px 14px; border-radius: 8px; background: rgba(255,255,255,0.03);">
-                    Consola H2 / BD &rarr;
-                </a>
+                <h1 style="font-size: 1.8rem; margin-top: 8px;">Sistema de Gestión de Residuos Electrónicos (RAEE)</h1>
+                <p style="color: var(--text-secondary); font-size: 0.95rem; margin-top: 4px;">
+                    Panel Web de Pruebas de la API REST protegida por JWT y Spring Security
+                </p>
             </div>
         </header>
 
-        <div class="doc-alert">
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-            <div class="doc-alert-content">
-                <strong>Punto 6.2 - Evidencia para el Informe:</strong> Ejecuta las 4 operaciones (POST, GET, PUT, DELETE) directamente aquí o mediante la colección exportada <code>raee_crud.postman_collection.json</code> en <strong>Postman</strong> o <strong>Apidog</strong> para capturar tus pantallas con el código HTTP y respuesta JSON del servidor.
+        <!-- Barra de Autenticación JWT -->
+        <div class="auth-bar">
+            <div class="auth-user-info">
+                <span>🛡️ Estado de Sesión:</span>
+                <span id="userStatus" class="badge" style="background: rgba(16, 185, 129, 0.2); color: #34d399;">
+                    Autenticando...
+                </span>
             </div>
+            <div class="auth-buttons">
+                <button class="btn-auth btn-auth-admin" onclick="autenticar('admin', 'admin123')">
+                    Acceder como Admin (ROLE_ADMIN)
+                </button>
+                <button class="btn-auth btn-auth-vend" onclick="autenticar('vendedor', 'vendedor123')">
+                    Acceder como Vendedor (ROLE_VENDEDOR)
+                </button>
+                <button class="btn-auth" onclick="cerrarSesion()">Salir</button>
+            </div>
+        </div>
+
+        <!-- Banner Angular -->
+        <div class="angular-banner">
+            <div>
+                <strong>🚀 ¿Buscas el Frontend en Angular 18?</strong>
+                <p style="color: var(--text-secondary); font-size: 0.85rem; margin: 0;">
+                    El proyecto SPA Angular completo está en la carpeta <code>frontend/</code> y se visualiza en el puerto <code>4200</code>.
+                </p>
+            </div>
+            <a href="http://localhost:4200" target="_blank" class="btn-auth" style="background: #dc2626; color: white; text-decoration: none;">
+                Abrir Angular (http://localhost:4200) ↗
+            </a>
         </div>
 
         <div class="grid">
@@ -367,32 +379,40 @@
                     <span>1. POST - Registrar Equipo</span>
                     <span class="step-tag tag-post">POST /api/productos</span>
                 </div>
+                <div class="form-group">
+                    <label>Nombre del Equipo *</label>
+                    <input type="text" id="postNombre" value="Monitor Dell 24 pulgadas UltraSharp">
+                </div>
                 <div class="row-2">
-                    <div class="form-group">
-                        <label>Nombre del Equipo</label>
-                        <input type="text" id="postNombre" value="Monitor Dell 24 pulgadas">
-                    </div>
                     <div class="form-group">
                         <label>Marca</label>
                         <input type="text" id="postMarca" value="Dell">
                     </div>
+                    <div class="form-group">
+                        <label>Modelo</label>
+                        <input type="text" id="postModelo" value="U2419H">
+                    </div>
                 </div>
                 <div class="row-2">
                     <div class="form-group">
-                        <label>Modelo</label>
-                        <input type="text" id="postModelo" value="P2419H">
+                        <label>Precio (S/.) *</label>
+                        <input type="number" id="postPrecio" value="480.00" min="0">
                     </div>
                     <div class="form-group">
-                        <label>Estado Inicial</label>
-                        <select id="postEstado">
-                            <option value="RECIBIDO" selected>RECIBIDO</option>
-                            <option value="EN_PROCESO">EN_PROCESO</option>
-                            <option value="RECICLADO">RECICLADO</option>
-                        </select>
+                        <label>Stock *</label>
+                        <input type="number" id="postStock" value="5" min="0">
                     </div>
                 </div>
+                <div class="form-group">
+                    <label>Estado</label>
+                    <select id="postEstado">
+                        <option value="RECIBIDO" selected>RECIBIDO</option>
+                        <option value="OPERATIVO">OPERATIVO</option>
+                        <option value="EN_MANTENIMIENTO">EN_MANTENIMIENTO</option>
+                    </select>
+                </div>
                 <button class="btn btn-post" onclick="ejecutarPost()">Registrar Equipo (POST)</button>
-                <div class="terminal" id="terminalPost">
+                <div class="terminal">
                     <div class="terminal-header">
                         <span>Respuesta JSON del Servidor</span>
                         <span id="statusPost" class="status-pill">En espera</span>
@@ -407,15 +427,12 @@
                     <span>2. GET - Consultar Inventario</span>
                     <span class="step-tag tag-get">GET /api/productos</span>
                 </div>
-                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 16px;">
-                    Obtiene el listado completo de residuos electrónicos registrados en la base de datos.
-                </p>
                 <div class="form-group">
                     <label>Filtro opcional por ID</label>
                     <input type="number" id="getId" placeholder="Dejar en blanco para listar todos">
                 </div>
                 <button class="btn btn-get" onclick="ejecutarGet()">Consultar Equipos (GET)</button>
-                <div class="terminal" id="terminalGet">
+                <div class="terminal">
                     <div class="terminal-header">
                         <span>Respuesta JSON del Servidor</span>
                         <span id="statusGet" class="status-pill">En espera</span>
@@ -438,24 +455,28 @@
                     <div class="form-group">
                         <label>Nuevo Estado</label>
                         <select id="putEstado">
-                            <option value="EN_PROCESO" selected>EN_PROCESO</option>
-                            <option value="RECICLADO">RECICLADO</option>
+                            <option value="OPERATIVO" selected>OPERATIVO</option>
+                            <option value="EN_MANTENIMIENTO">EN_MANTENIMIENTO</option>
                             <option value="RECIBIDO">RECIBIDO</option>
                         </select>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label>Nombre Actualizado</label>
+                    <input type="text" id="putNombre" value="Monitor Dell 24 pulgadas UltraSharp (Aprobado)">
+                </div>
                 <div class="row-2">
                     <div class="form-group">
-                        <label>Nombre Actualizado</label>
-                        <input type="text" id="putNombre" value="Monitor Dell 24 pulgadas UltraSharp">
+                        <label>Precio Actualizado</label>
+                        <input type="number" id="putPrecio" value="520.00">
                     </div>
                     <div class="form-group">
-                        <label>Modelo Actualizado</label>
-                        <input type="text" id="putModelo" value="U2419H">
+                        <label>Stock</label>
+                        <input type="number" id="putStock" value="4">
                     </div>
                 </div>
                 <button class="btn btn-put" onclick="ejecutarPut()">Actualizar Equipo (PUT)</button>
-                <div class="terminal" id="terminalPut">
+                <div class="terminal">
                     <div class="terminal-header">
                         <span>Respuesta JSON del Servidor</span>
                         <span id="statusPut" class="status-pill">En espera</span>
@@ -471,14 +492,14 @@
                     <span class="step-tag tag-delete">DELETE /api/productos/{id}</span>
                 </div>
                 <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 16px;">
-                    Elimina permanentemente el registro del equipo electrónico indicado por su identificador.
+                    Elimina un equipo permanentemente. <strong>(Requiere rol ROLE_ADMIN; denegado para ROLE_VENDEDOR)</strong>.
                 </p>
                 <div class="form-group">
                     <label>ID del Equipo a Eliminar</label>
                     <input type="number" id="deleteId" value="1">
                 </div>
                 <button class="btn btn-delete" onclick="ejecutarDelete()">Eliminar Equipo (DELETE)</button>
-                <div class="terminal" id="terminalDelete">
+                <div class="terminal">
                     <div class="terminal-header">
                         <span>Respuesta JSON del Servidor</span>
                         <span id="statusDelete" class="status-pill">En espera</span>
@@ -488,49 +509,111 @@
             </div>
         </div>
 
-        <!-- Tabla de Inventario en Tiempo Real -->
+        <!-- Tabla en tiempo real -->
         <div class="card table-container">
             <div class="card-title">
                 <span>Inventario de Residuos Electrónicos (Tabla en Tiempo Real)</span>
-                <button onclick="cargarTabla()" style="background: none; border: 1px solid var(--border-color); color: var(--text-secondary); padding: 4px 10px; border-radius: 6px; cursor: pointer;">Recargar Tabla</button>
+                <button onclick="cargarTabla()" class="btn-auth" style="padding: 4px 10px;">Recargar Tabla</button>
             </div>
             <table>
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>Nombre</th>
-                        <th>Marca</th>
-                        <th>Modelo</th>
+                        <th>Marca / Modelo</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
                         <th>Estado</th>
                         <th>Fecha de Registro</th>
                     </tr>
                 </thead>
                 <tbody id="tablaCuerpo">
-                    <tr>
-                        <td colspan="6" style="text-align: center; color: var(--text-muted);">Cargando inventario...</td>
-                    </tr>
+                    <tr><td colspan="7" style="text-align: center; color: var(--text-muted);">Cargando inventario...</td></tr>
                 </tbody>
             </table>
         </div>
     </div>
 
     <script>
+        let jwtToken = localStorage.getItem('raee_jwt_token') || '';
+        let currentUser = localStorage.getItem('raee_username') || '';
+        let currentRol = localStorage.getItem('raee_rol') || '';
+
+        function actualizarBarraUsuario() {
+            const statusEl = document.getElementById('userStatus');
+            if (jwtToken) {
+                statusEl.innerHTML = `Conectado como <strong>${currentUser}</strong> (${currentRol})`;
+                statusEl.style.background = currentRol === 'ROLE_ADMIN' ? 'rgba(244, 63, 94, 0.2)' : 'rgba(6, 182, 212, 0.2)';
+                statusEl.style.color = currentRol === 'ROLE_ADMIN' ? '#fda4af' : '#67e8f9';
+            } else {
+                statusEl.innerHTML = 'Sin sesión activa (No autenticado)';
+                statusEl.style.background = 'rgba(244, 63, 94, 0.2)';
+                statusEl.style.color = '#fda4af';
+            }
+        }
+
+        async function autenticar(username, password) {
+            try {
+                const res = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    jwtToken = data.token;
+                    currentUser = data.username;
+                    currentRol = data.rol;
+                    localStorage.setItem('raee_jwt_token', jwtToken);
+                    localStorage.setItem('raee_username', currentUser);
+                    localStorage.setItem('raee_rol', currentRol);
+                    actualizarBarraUsuario();
+                    cargarTabla();
+                } else {
+                    alert('Error en autenticación');
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        function cerrarSesion() {
+            jwtToken = '';
+            currentUser = '';
+            currentRol = '';
+            localStorage.removeItem('raee_jwt_token');
+            localStorage.removeItem('raee_username');
+            localStorage.removeItem('raee_rol');
+            actualizarBarraUsuario();
+            cargarTabla();
+        }
+
+        function getAuthHeaders() {
+            const headers = { 'Content-Type': 'application/json' };
+            if (jwtToken) {
+                headers['Authorization'] = 'Bearer ' + jwtToken;
+            }
+            return headers;
+        }
+
         async function ejecutarPost() {
             const data = {
                 nombre: document.getElementById('postNombre').value,
                 marca: document.getElementById('postMarca').value,
                 modelo: document.getElementById('postModelo').value,
+                precio: parseFloat(document.getElementById('postPrecio').value) || 0,
+                stock: parseInt(document.getElementById('postStock').value) || 0,
                 estado: document.getElementById('postEstado').value
             };
             try {
                 const res = await fetch('/api/productos', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: getAuthHeaders(),
                     body: JSON.stringify(data)
                 });
                 const json = await res.json();
-                document.getElementById('statusPost').className = 'status-pill status-200';
-                document.getElementById('statusPost').innerText = res.status + ' OK';
+                document.getElementById('statusPost').className = 'status-pill status-' + res.status;
+                document.getElementById('statusPost').innerText = res.status + ' ' + (res.ok ? 'CREATED' : 'ERROR');
                 document.getElementById('outputPost').innerText = JSON.stringify(json, null, 2);
                 if (json.id) {
                     document.getElementById('putId').value = json.id;
@@ -546,16 +629,10 @@
             const id = document.getElementById('getId').value.trim();
             const url = id ? `/api/productos/${id}` : '/api/productos';
             try {
-                const res = await fetch(url);
-                if (!res.ok) {
-                    document.getElementById('statusGet').className = 'status-pill status-404';
-                    document.getElementById('statusGet').innerText = res.status + ' NOT FOUND';
-                    document.getElementById('outputGet').innerText = 'Registro no encontrado';
-                    return;
-                }
+                const res = await fetch(url, { headers: getAuthHeaders() });
                 const json = await res.json();
-                document.getElementById('statusGet').className = 'status-pill status-200';
-                document.getElementById('statusGet').innerText = res.status + ' OK';
+                document.getElementById('statusGet').className = 'status-pill status-' + res.status;
+                document.getElementById('statusGet').innerText = res.status + ' ' + (res.ok ? 'OK' : 'ERROR');
                 document.getElementById('outputGet').innerText = JSON.stringify(json, null, 2);
                 cargarTabla();
             } catch (err) {
@@ -568,18 +645,20 @@
             const data = {
                 nombre: document.getElementById('putNombre').value,
                 marca: document.getElementById('postMarca').value,
-                modelo: document.getElementById('putModelo').value,
+                modelo: document.getElementById('postModelo').value,
+                precio: parseFloat(document.getElementById('putPrecio').value) || 0,
+                stock: parseInt(document.getElementById('putStock').value) || 0,
                 estado: document.getElementById('putEstado').value
             };
             try {
                 const res = await fetch(`/api/productos/${id}`, {
                     method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: getAuthHeaders(),
                     body: JSON.stringify(data)
                 });
                 const json = await res.json();
-                document.getElementById('statusPut').className = 'status-pill status-200';
-                document.getElementById('statusPut').innerText = res.status + ' OK';
+                document.getElementById('statusPut').className = 'status-pill status-' + res.status;
+                document.getElementById('statusPut').innerText = res.status + ' ' + (res.ok ? 'OK' : 'ERROR');
                 document.getElementById('outputPut').innerText = JSON.stringify(json, null, 2);
                 cargarTabla();
             } catch (err) {
@@ -590,10 +669,20 @@
         async function ejecutarDelete() {
             const id = document.getElementById('deleteId').value;
             try {
-                const res = await fetch(`/api/productos/${id}`, { method: 'DELETE' });
-                document.getElementById('statusDelete').className = 'status-pill status-200';
-                document.getElementById('statusDelete').innerText = res.status + ' OK';
-                document.getElementById('outputDelete').innerText = `{\n  "mensaje": "Equipo con ID ${id} eliminado exitosamente",\n  "status": 200\n}`;
+                const res = await fetch(`/api/productos/${id}`, {
+                    method: 'DELETE',
+                    headers: getAuthHeaders()
+                });
+                if (res.status === 204) {
+                    document.getElementById('statusDelete').className = 'status-pill status-200';
+                    document.getElementById('statusDelete').innerText = '204 NO CONTENT';
+                    document.getElementById('outputDelete').innerText = `{\n  "mensaje": "Producto con ID ${id} eliminado exitosamente por Administrador",\n  "status": 204\n}`;
+                } else {
+                    const json = await res.json();
+                    document.getElementById('statusDelete').className = 'status-pill status-' + res.status;
+                    document.getElementById('statusDelete').innerText = res.status + ' ERROR';
+                    document.getElementById('outputDelete').innerText = JSON.stringify(json, null, 2);
+                }
                 cargarTabla();
             } catch (err) {
                 document.getElementById('outputDelete').innerText = 'Error: ' + err.message;
@@ -602,23 +691,31 @@
 
         async function cargarTabla() {
             try {
-                const res = await fetch('/api/productos');
+                const res = await fetch('/api/productos', { headers: getAuthHeaders() });
+                if (!res.ok) {
+                    document.getElementById('tablaCuerpo').innerHTML = `
+                        <tr><td colspan="7" style="text-align: center; color: #fb7185;">
+                            Inicia sesión como Admin o Vendedor arriba para cargar el inventario.
+                        </td></tr>`;
+                    return;
+                }
                 const lista = await res.json();
                 const tbody = document.getElementById('tablaCuerpo');
                 if (!Array.isArray(lista) || lista.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--text-muted);">No hay equipos registrados en el inventario.</td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: var(--text-muted);">No hay equipos registrados en el inventario.</td></tr>';
                     return;
                 }
                 tbody.innerHTML = lista.map(p => {
                     let badgeClass = 'estado-recibido';
-                    if (p.estado === 'EN_PROCESO') badgeClass = 'estado-proceso';
-                    if (p.estado === 'RECICLADO') badgeClass = 'estado-reciclado';
+                    if (p.estado === 'OPERATIVO') badgeClass = 'estado-operativo';
+                    if (p.estado === 'EN_MANTENIMIENTO') badgeClass = 'estado-mantenimiento';
                     return `
                         <tr>
                             <td><strong>#${p.id}</strong></td>
                             <td>${p.nombre || '-'}</td>
-                            <td>${p.marca || '-'}</td>
-                            <td>${p.modelo || '-'}</td>
+                            <td>${p.marca || '-'} ${p.modelo || ''}</td>
+                            <td style="color: #38bdf8; font-weight: 600;">S/. ${Number(p.precio || 0).toFixed(2)}</td>
+                            <td><span style="background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 999px;">${p.stock}</span></td>
                             <td><span class="badge-estado ${badgeClass}">${p.estado}</span></td>
                             <td style="color: var(--text-secondary); font-family: monospace;">${p.fechaRegistro || '-'}</td>
                         </tr>
@@ -629,8 +726,13 @@
             }
         }
 
-        // Carga inicial
-        cargarTabla();
+        // Si no hay token, autenticar automáticamente como admin para demostración fluida
+        if (!jwtToken) {
+            autenticar('admin', 'admin123');
+        } else {
+            actualizarBarraUsuario();
+            cargarTabla();
+        }
     </script>
 </body>
 </html>

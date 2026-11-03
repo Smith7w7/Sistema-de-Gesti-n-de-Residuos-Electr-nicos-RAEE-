@@ -47,3 +47,4 @@ public class Usuario {
         this.activo = true;
     }
 }
+

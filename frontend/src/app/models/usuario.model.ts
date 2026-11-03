@@ -11,3 +11,4 @@ export interface AuthResponse {
   username: string;
   rol: 'ROLE_ADMIN' | 'ROLE_VENDEDOR';
 }
+
