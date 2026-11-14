@@ -1,0 +1,769 @@
+{
+	"info": {
+		"_postman_id": "7f89b421-4d1e-4cb8-9b87-123456789abc",
+		"name": "Sistema RAEE y Ventas - API REST (Apidog)",
+		"description": "Colección completa de servicios RESTful del Sistema de Gestión de Residuos RAEE y Ventas, protegida por Spring Security y JWT. Importable directamente en Apidog y Postman.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "1. Autenticación (JWT)",
+			"item": [
+				{
+					"name": "1.1 Login - Administrador (Obtener Token)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if (jsonData.token) {",
+									"    pm.collectionVariables.set('token', jsonData.token);",
+									"    console.log('Token JWT guardado automáticamente en la variable {{token}}');",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"admin\",\n  \"password\": \"admin123\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						},
+						"description": "Autentica al administrador y guarda automáticamente el token JWT."
+					},
+					"response": []
+				},
+				{
+					"name": "1.2 Login - Vendedor",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"vendedor\",\n  \"password\": \"vendedor123\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						},
+						"description": "Autentica al usuario con rol vendedor (ROLE_VENDEDOR)."
+					},
+					"response": []
+				},
+				{
+					"name": "1.3 Registro de Nuevo Usuario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"supervisor1\",\n  \"password\": \"super123\",\n  \"email\": \"supervisor@raee.com\",\n  \"rol\": \"ROLE_VENDEDOR\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/register",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						},
+						"description": "Registra un nuevo usuario con contraseña encriptada mediante BCrypt."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "2. Productos y Equipos RAEE",
+			"item": [
+				{
+					"name": "2.1 Listar Todos los Equipos (INDEX)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/productos",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"productos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.2 Buscar Equipo por ID (SHOW)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/productos/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"productos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.3 Registrar Equipo (CREATE)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"Switch Cisco Catalyst 2960\",\n  \"marca\": \"Cisco\",\n  \"modelo\": \"WS-C2960-24TT-L\",\n  \"estado\": \"OPERATIVO\",\n  \"precio\": 650.00,\n  \"stock\": 4,\n  \"categoria\": {\n    \"id\": 2\n  }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/productos",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"productos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.4 Actualizar Equipo (UPDATE)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"Switch Cisco Catalyst 2960 (Actualizado)\",\n  \"marca\": \"Cisco\",\n  \"modelo\": \"WS-C2960-24TT-L\",\n  \"estado\": \"OPERATIVO\",\n  \"precio\": 690.00,\n  \"stock\": 3,\n  \"categoria\": {\n    \"id\": 2\n  }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/productos/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"productos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.5 Eliminar Equipo (DELETE - Sólo ADMIN)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/productos/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"productos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.6 Filtrar por Estado (JPQL)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/productos/estado/OPERATIVO",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"productos",
+								"estado",
+								"OPERATIVO"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.7 Filtrar por Categoría (JPQL con JOIN)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/productos/categoria/Redes",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"productos",
+								"categoria",
+								"Redes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.8 Buscar por Estado y Marca (Named Query)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/productos/buscar/estado-marca?estado=OPERATIVO&marca=Cisco",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"productos",
+								"buscar",
+								"estado-marca"
+							],
+							"query": [
+								{
+									"key": "estado",
+									"value": "OPERATIVO"
+								},
+								{
+									"key": "marca",
+									"value": "Cisco"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.9 Buscar por Rango de Precios (Named Query)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/productos/buscar/precio?min=100&max=1000",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"productos",
+								"buscar",
+								"precio"
+							],
+							"query": [
+								{
+									"key": "min",
+									"value": "100"
+								},
+								{
+									"key": "max",
+									"value": "1000"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "3. Clientes",
+			"item": [
+				{
+					"name": "3.1 Listar Todos los Clientes (INDEX)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/clientes",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"clientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3.2 Buscar Cliente por ID (SHOW)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/clientes/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"clientes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3.3 Registrar Cliente (CREATE)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"Mariana Valdivia Ramos\",\n  \"identificacion\": \"71829304\",\n  \"email\": \"m.valdivia@empresa.com\",\n  \"telefono\": \"987112233\",\n  \"tipo\": \"NATURAL\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/clientes",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"clientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3.4 Actualizar Cliente (UPDATE)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"Mariana Valdivia Actualizada\",\n  \"identificacion\": \"71829304\",\n  \"email\": \"m.valdivia@empresa.com\",\n  \"telefono\": \"999888777\",\n  \"tipo\": \"NATURAL\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/clientes/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"clientes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3.5 Eliminar Cliente (DELETE - Sólo ADMIN)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/clientes/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"clientes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3.6 Buscar por DNI o RUC (Named Query)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/clientes/identificacion/71829304",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"clientes",
+								"identificacion",
+								"71829304"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3.7 Buscar por Tipo (NATURAL o JURIDICO)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/clientes/tipo/NATURAL",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"clientes",
+								"tipo",
+								"NATURAL"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "4. Ventas y Órdenes de Salida",
+			"item": [
+				{
+					"name": "4.1 Listar Todas las Ventas (INDEX)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/ventas",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"ventas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4.2 Buscar Venta por ID (SHOW)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/ventas/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"ventas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4.3 Registrar Venta con Detalles (CREATE)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"cliente\": {\n    \"id\": 1\n  },\n  \"total\": 1300.00,\n  \"estado\": \"PAGADA\",\n  \"detalles\": [\n    {\n      \"producto\": {\n        \"id\": 1\n      },\n      \"cantidad\": 2,\n      \"precioUnitario\": 650.00,\n      \"subtotal\": 1300.00\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/ventas",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"ventas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4.4 Anular o Eliminar Venta (DELETE - Sólo ADMIN)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/ventas/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"ventas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4.5 Buscar Ventas por Cliente",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/ventas/cliente/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"ventas",
+								"cliente",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "5. Categorías",
+			"item": [
+				{
+					"name": "5.1 Listar Categorías",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/categorias",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"categorias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5.2 Registrar Categoría (CREATE - Sólo ADMIN)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"Servidores y Almacenamiento\",\n  \"descripcion\": \"Servidores rackeables, discos NAS y SAN\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/categorias",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"categorias"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
+
